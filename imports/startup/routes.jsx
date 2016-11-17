@@ -1,13 +1,14 @@
 import React from 'react';
 import {Router, Route, browserHistory} from 'react-router';
 
-import AppContainer from '/imports/ui/containers/AppContainer.jsx';
-import App from '/imports/ui/layouts/App.jsx';
+import AlmacenContainer from '/imports/ui/containers/AlmacenContainer.jsx';
+import Home from '/imports/ui/components/Home.jsx';
 
 export const renderRoutes = () => (
   <Router history={browserHistory}>
-    <Route component={AppContainer}>
-      <Route path="/" component={AppContainer} />    
+    <Route component={Home}>
+      <Route path="/" component={Home} />  
     </Route>
+    <Route path="/almacen" component={AlmacenContainer} />    
   </Router>
 );

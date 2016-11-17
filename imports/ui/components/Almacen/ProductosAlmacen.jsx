@@ -11,14 +11,30 @@ export default class ProductosAlmacen extends Component {
 
         _.bindAll(
             this,
-            'handleNombre',            
-            'handleSubmit',
+            'handleNombre',
+            'handleBuscar',
+            'handleSubmitBuscar',
+            'handleSubmitEditar',
         );
         this.state = this.crearDesdeProps(props);
     }
+    
+    crearDesdeProps(props) {
+        var state = {};
+        state.nombre = '';        
+        state.buscar = '';
+        state.productos = this.props.productos;
+        state.resultadosBusqueda = state.producto; 
+        
+        return state;
+    }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ productos: nextProps.productos });
+        this.setState({ productos: nextProps.productos, resultadosBusqueda: nextProps.productos });
+    }
+
+    obtenerProductos(busqueda){
+        return ProductosAlmacenApi.find({nombre: {$regex: ".*" + busqueda + ".*"}}).fetch();
     }
 
     generateId() {
@@ -31,43 +47,65 @@ export default class ProductosAlmacen extends Component {
             s4() + '-' + s4() + s4() + s4();
     }
 
-    crearDesdeProps(props) {
-        var state = {};
-        state.nombre = '';
-        state.apellido = '';
-        state.productos = this.props.productos;
-        return state;
-    }
     handleNombre(e) {
         this.setState({ nombre: e.target.value });
-    }    
-    handleSubmit(event) {
+    }
+
+    handleBuscar(e) {
+        this.setState({ buscar: e.target.value });
+    }
+
+    handleSubmitBuscar() {
+        event.preventDefault();        
+
+        var busqueda = this.state.buscar;
+
+        var p = this.obtenerProductos(busqueda);        
+        this.setState({ resultadosBusqueda: p });
+    }
+
+    handleSubmitEditar(event) {
         event.preventDefault();
-        
+
         const productos = this.state.productos;
-        
+
         ProductosAlmacenApi.insert({
             nombre: this.state.nombre,
-            cantidad: 0,                                    
+            cantidad: 0,
         });
         this.setState({ nombre: '', productos: productos });
-    }   
-    renderProducto() {                
-        return this.props.productos.map((producto) => (
-            <Producto key={producto._id} producto={producto} />            
-        ));
-    } 
+    }
+    renderProducto() {
+        if(this.state.resultadosBusqueda)
+            return this.state.resultadosBusqueda.map((producto) => (
+                <Producto key={producto._id} producto={producto} />
+            ));
+        else
+            return this.props.productos.map((producto) => (
+                <Producto key={producto._id} producto={producto} />
+            ));
+    }
     render() {
         return (
-            <ul className="list-group">
-                {this.renderProducto()}                
-                <li className="list-group-item">
-                    <form className="new-task" onSubmit={this.handleSubmit} >
-                        <input type="text" value={this.state.nombre} onChange={this.handleNombre} />                        
-                        <input type="submit" value="agregar" />
-                    </form>
-                </li>
-            </ul>
+            <div>
+                <form className="buscar" onSubmit={this.handleSubmitBuscar}>
+                    <div className="form-group">
+                        <input type="text" className="form-control" placeholder="Search" 
+                            value={this.state.buscar} onChange={this.handleBuscar}    
+                        />
+                    </div>
+                    <button type="submit" className="btn btn-default">Submit</button>
+                </form>
+                <ul className="list-group">
+                    {this.renderProducto()}
+                    <li className="list-group-item">
+                        <form className="new-task" onSubmit={this.handleSubmitEditar} >
+                            <input type="text" value={this.state.nombre} onChange={this.handleNombre} />
+                            <input type="submit" value="agregar" />
+                        </form>
+                    </li>
+                </ul>
+            </div>
         );
     }
 }

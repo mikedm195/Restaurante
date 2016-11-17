@@ -4,10 +4,10 @@ import { _ } from 'lodash';
 
 import EmpleadosAlmacen from '/imports/ui/components/Almacen/EmpleadosAlmacen.jsx';
 import ProductosAlmacen from '/imports/ui/components/Almacen/ProductosAlmacen.jsx';
-import Header from '../components/Header.jsx';
+import AlmacenHeader from '../components/Almacen/AlmacenHeader.jsx';
 import Footer from '../components/Footer.jsx';
-// App component - represents the whole app
-export default class App extends Component {
+
+export default class Almacen extends Component {
     constructor(props) {
         super(props);
 
@@ -27,13 +27,9 @@ export default class App extends Component {
         return (
             <div className="container">
                 <div className="jumbotron">
-                    <h1>Restaurante de Ariel</h1>
-                    <p>Proyecto para la clase de Analisis y modelacion de software</p>
-                </div>
-                <p>Miguel Del Moral.</p>
-                <p>Alejandro Herce.</p>
-                <p>Margot Duek.</p>
-                <p>Jacobo Calderon.</p>
+                    <h1>Almacen de Ariel</h1>
+                    <p>Aqui se administra el almacen de Ariel</p>
+                </div>                
             </div>
         );
     }    
@@ -47,7 +43,7 @@ export default class App extends Component {
             content = this.seleccionar();
         return (
             <div>
-                <Header productos={this.props.productos} onClick={this.handleOpcion} />
+                <AlmacenHeader productos={this.props.productos} onClick={this.handleOpcion} />
                 {content}
                 {/*<EmpleadosAlmacen empleados={this.props.empleados} />*/}
                 <Footer />
@@ -56,7 +52,7 @@ export default class App extends Component {
     }
 }
 
-App.propTypes = {
+Almacen.propTypes = {
     empleados: PropTypes.array.isRequired,
     productos: PropTypes.array.isRequired,
 };
