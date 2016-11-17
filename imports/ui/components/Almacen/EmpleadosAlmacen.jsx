@@ -1,0 +1,89 @@
+import React, { Component, PropTypes } from 'react';
+import { _ } from 'lodash';
+
+import { EmpleadosAlmacenApi } from '/imports/api/EmpleadosAlmacen.js';
+import Empleado from './Empleado.jsx';
+
+// Task component - represents a single todo item
+export default class EmpleadosAlmacen extends Component {
+    constructor(props) {
+        super(props);
+
+        _.bindAll(
+            this,
+            'handleNombre',
+            'handleApellido',
+            'handleSubmit',
+        );
+        this.state = this.crearDesdeProps(props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({ empleados: nextProps.empleados });
+    }
+
+    generateId() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
+    }
+
+    crearDesdeProps(props) {
+        var state = {};
+        state.nombre = '';
+        state.apellido = '';
+        state.empleados = this.props.empleados;
+        return state;
+    }
+    handleNombre(e) {
+        this.setState({ nombre: e.target.value });
+    }
+    handleApellido(e) {
+        this.setState({ apellido: e.target.value });
+    }
+    handleSubmit(event) {
+        event.preventDefault();
+
+        // Find the text field via the React ref
+        const empleados = this.state.empleados;
+
+        //empleados.push(empleado);
+        EmpleadosAlmacenApi.insert({
+            nombre: this.state.nombre,
+            apellido: this.state.apellido,
+            createAt: new Date(),
+        });
+        this.setState({ nombre: '', apellido: '', empleados: empleados });
+
+        // Clear form
+    }
+    renderEmpleado() {
+
+        return this.props.empleados.map((empleado) => (
+            <Empleado key={empleado._id} empleado={empleado} />
+        ));
+    }
+    render() {
+        return (
+            <div className="container">
+                <form className="new-task" onSubmit={this.handleSubmit} >
+                    <input type="text" value={this.state.nombre} onChange={this.handleNombre} />
+                    <input type="text" value={this.state.apellido} onChange={this.handleApellido} />
+                    <input type="submit" value="agregar" />
+                </form>
+                <div className="row">
+                    {this.renderEmpleado()}
+                </div>
+
+            </div>
+        );
+    }
+}
+
+EmpleadosAlmacen.propTypes = {
+    empleados: PropTypes.array.isRequired,
+};

@@ -1,0 +1,27 @@
+/* CSS declarations go here */
+.navbar {
+    margin-bottom: 50px;
+    border-radius: 0;
+}
+
+/* Remove the jumbotron's default bottom margin */
+    .jumbotron {
+    margin-bottom: 0;
+}
+
+/* Add a gray background color and some padding to the footer */
+footer {
+    background-color: #f2f2f2;
+    padding: 25px;
+}
+
+.btnEditar {
+    width: 50%;
+    height: 100%;
+}
+
+.notify {
+    margin-top: 10px;
+    margin-right: 50px;
+    color: gray;
+}
