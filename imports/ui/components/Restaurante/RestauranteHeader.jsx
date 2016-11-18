@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-//import OverlayTrigger from 'react-bootstrap';
 
 import { _ } from 'lodash';
 
-export default class HomeHeader extends Component {    
-    render() {                
+export default class Header extends Component {
+    render() {
         return (
             <nav className="navbar navbar-inverse">
                 <div className="container-fluid">
@@ -15,13 +14,14 @@ export default class HomeHeader extends Component {
                             <span className="icon-bar"></span>
                             <span className="icon-bar"></span>
                         </button>
-                        <a className="navbar-brand" href="#">Restaurante</a>
+                        <Link className="navbar-brand" to="/">Restaurante</Link>
                     </div>
                     <div className="collapse navbar-collapse" id="myNavbar">
                         <ul className="nav navbar-nav">
-                            <li className="active"><a href="#">Home</a></li>
-                            <li><Link to="/almacen">Almacen</Link></li>
-                            <li><Link to="/restaurante">Restaurante</Link></li>
+                            <li onClick={() => this.props.onClick(0)} className="active"><a href="#">Home</a></li>
+                            <li onClick={() => this.props.onClick(1)}><a href="#">Pedidos</a></li>
+                            <li onClick={() => this.props.onClick(2)}><a href="#">Productos</a></li>
+                            <li onClick={() => this.props.onClick(3)}><a href="#">Menus</a></li>
                         </ul>                        
                     </div>
                 </div>

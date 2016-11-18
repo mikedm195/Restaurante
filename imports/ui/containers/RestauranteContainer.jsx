@@ -1,12 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import Almacen from '../layouts/Almacen.jsx';
-import { EmpleadosAlmacenApi } from '../../api/EmpleadosAlmacen.js';
+import Restaurante from '../layouts/Restaurante.jsx';
 import { ProductosAlmacenApi } from '../../api/ProductosAlmacen.js';
+import { ProductosRestauranteApi } from '../../api/ProductosRestaurante.js';
 
 export default createContainer((props) => {
-    return {
-        empleados: EmpleadosAlmacenApi.find({}).fetch(),
-        productos: ProductosAlmacenApi.find({}).fetch(),
+    return {        
+        productos: ProductosRestauranteApi.find({}).fetch(),
+        productosAlmacen: ProductosAlmacenApi.find({}).fetch(),
     }
-}, Almacen);
+}, Restaurante);
