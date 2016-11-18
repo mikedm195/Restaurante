@@ -4,7 +4,6 @@ import { _ } from 'lodash';
 import { ProductosAlmacenApi } from '/imports/api/ProductosAlmacen.js';
 import Producto from './Producto.jsx';
 
-// Task component - represents a single todo item
 export default class ProductosAlmacen extends Component {
     constructor(props) {
         super(props);
@@ -18,14 +17,15 @@ export default class ProductosAlmacen extends Component {
         );
         this.state = this.crearDesdeProps(props);
     }
-    
+
     crearDesdeProps(props) {
         var state = {};
-        state.nombre = '';        
+        state.nombre = '';
         state.buscar = '';
+        state.show = false;
         state.productos = this.props.productos;
-        state.resultadosBusqueda = state.producto; 
-        
+        state.resultadosBusqueda = state.producto;
+
         return state;
     }
 
@@ -33,8 +33,8 @@ export default class ProductosAlmacen extends Component {
         this.setState({ productos: nextProps.productos, resultadosBusqueda: nextProps.productos });
     }
 
-    obtenerProductos(busqueda){
-        return ProductosAlmacenApi.find({nombre: {$regex: ".*" + busqueda + ".*"}}).fetch();
+    obtenerProductos(busqueda) {
+        return ProductosAlmacenApi.find({ nombre: { $regex: ".*" + busqueda + ".*" } }).fetch();
     }
 
     generateId() {
@@ -56,11 +56,11 @@ export default class ProductosAlmacen extends Component {
     }
 
     handleSubmitBuscar() {
-        event.preventDefault();        
+        event.preventDefault();
 
         var busqueda = this.state.buscar;
 
-        var p = this.obtenerProductos(busqueda);        
+        var p = this.obtenerProductos(busqueda);
         this.setState({ resultadosBusqueda: p });
     }
 
@@ -75,14 +75,15 @@ export default class ProductosAlmacen extends Component {
         });
         this.setState({ nombre: '', productos: productos });
     }
+    
     renderProducto() {
-        if(this.state.resultadosBusqueda)
+        if (this.state.resultadosBusqueda)
             return this.state.resultadosBusqueda.map((producto) => (
-                <Producto key={producto._id} producto={producto} />
+                <Producto key={producto._id} producto={producto} open={this.open}/>
             ));
         else
             return this.props.productos.map((producto) => (
-                <Producto key={producto._id} producto={producto} />
+                <Producto key={producto._id} producto={producto} open={this.open}/>
             ));
     }
     render() {
@@ -90,9 +91,9 @@ export default class ProductosAlmacen extends Component {
             <div>
                 <form className="buscar" onSubmit={this.handleSubmitBuscar}>
                     <div className="form-group">
-                        <input type="text" className="form-control" placeholder="Search" 
-                            value={this.state.buscar} onChange={this.handleBuscar}    
-                        />
+                        <input type="text" className="form-control" placeholder="Search"
+                            value={this.state.buscar} onChange={this.handleBuscar}
+                            />
                     </div>
                     <button type="submit" className="btn btn-default">Submit</button>
                 </form>
@@ -104,7 +105,7 @@ export default class ProductosAlmacen extends Component {
                             <input type="submit" value="agregar" />
                         </form>
                     </li>
-                </ul>
+                </ul>                
             </div>
         );
     }
