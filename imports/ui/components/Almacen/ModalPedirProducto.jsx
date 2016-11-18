@@ -3,7 +3,7 @@ import { _ } from 'lodash';
 import { Modal } from 'react-bootstrap';
 
 import { ProductosAlmacenApi } from '/imports/api/ProductosAlmacen.js';
-//import { agregarOActualizarConsulta } from '/imports/api/pacientes/methods.js';
+import { PedidosAlmacenApi } from '/imports/api/PedidosAlmacen.js';
 
 export default class ModalNuevaConsulta extends React.Component {
     constructor(props) {
@@ -50,6 +50,12 @@ export default class ModalNuevaConsulta extends React.Component {
             s4() + '-' + s4() + s4() + s4();
     }    
     hacerPedido(){
+        PedidosAlmacenApi.insert({
+            _idProducto: this.props.producto._id,
+            producto: this.props.producto.nombre,
+            cantidad: this.state.pedir,
+            estado: 'enviado',
+        });
         alert("Se hizo pedido de " + this.state.pedir + " " + this.state.producto.nombre + "s");
     }
     guardar(){                 

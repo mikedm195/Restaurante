@@ -4,6 +4,7 @@ import { _ } from 'lodash';
 
 import EmpleadosAlmacen from '/imports/ui/components/Almacen/EmpleadosAlmacen.jsx';
 import ProductosAlmacen from '/imports/ui/components/Almacen/ProductosAlmacen.jsx';
+import PedidosAlmacen from '/imports/ui/components/Almacen/PedidosAlmacen.jsx';
 import AlmacenHeader from '../components/Almacen/AlmacenHeader.jsx';
 import Footer from '../components/Footer.jsx';
 
@@ -39,11 +40,13 @@ export default class Almacen extends Component {
             content = <EmpleadosAlmacen empleados={this.props.empleados} />;
         else if (this.state.opcion == 2)
             content = <ProductosAlmacen productos={this.props.productos} />;
+        else if (this.state.opcion == 3)
+            content = <PedidosAlmacen pedidos={this.props.pedidos} />;
         else if (this.state.opcion == 0)
             content = this.seleccionar();
         return (
             <div>
-                <AlmacenHeader productos={this.props.productos} onClick={this.handleOpcion} />
+                <AlmacenHeader productos={this.props.productos} pedidos={this.props.pedidos} onClick={this.handleOpcion} />
                 {content}
                 {/*<EmpleadosAlmacen empleados={this.props.empleados} />*/}
                 <Footer />
@@ -55,4 +58,5 @@ export default class Almacen extends Component {
 Almacen.propTypes = {
     empleados: PropTypes.array.isRequired,
     productos: PropTypes.array.isRequired,
+    pedidos: PropTypes.array.isRequired,
 };
