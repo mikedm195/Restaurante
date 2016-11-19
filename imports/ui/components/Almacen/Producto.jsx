@@ -70,8 +70,7 @@ export default class Producto extends Component {
     }
 
     close() {
-        this.setState({ show: false });
-        this.forceUpdate();
+        this.setState({ show: false });        
     }
 
     open() {
