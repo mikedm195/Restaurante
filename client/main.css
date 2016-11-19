@@ -25,3 +25,7 @@ footer {
     margin-right: 30px;
     color: gray;
 }
+
+p, h3 {
+    display: inline;
+}

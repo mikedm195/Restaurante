@@ -6,3 +6,11 @@ export function getObjectFromArray(array,id){
     }
     return null;
 }
+
+export function removeFromArray(array,obj){        
+    var index = array.indexOf(obj);
+    if (index > -1) {
+        array.splice(index, 1);
+    }
+    return array;
+}
