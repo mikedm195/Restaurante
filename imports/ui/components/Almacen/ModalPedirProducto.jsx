@@ -12,11 +12,12 @@ export default class ModalNuevaConsulta extends React.Component {
         _.bindAll(
             this,
             'handleNombre',
-            'handleCantidad', 
-            'handlePedir',  
-            'guardar', 
-            'hacerPedido',  
-            'eliminarProducto',             
+            'handleCantidad',
+            'handlePedir',
+            'guardar',
+            'hacerPedido',
+            'eliminarProducto',
+            'handle_caducidad',
         );
 
         this.state = {};
@@ -24,14 +25,15 @@ export default class ModalNuevaConsulta extends React.Component {
         this.state.nombre = props.producto.nombre;
         this.state.cantidad = '';
         this.state.pedir = '';
+        this.state.caducidad = '';
     }
 
     handleNombre(e) {
         this.setState({ nombre: e.target.value });
     }
 
-    handleCantidad(e) {        
-        var num = parseInt(e.target.value);        
+    handleCantidad(e) {
+        var num = parseInt(e.target.value);
         if((num > 0 && num <= this.props.producto.cantidad))
             this.setState({ cantidad: num });
         if(isNaN(num))
@@ -40,6 +42,11 @@ export default class ModalNuevaConsulta extends React.Component {
     handlePedir(e) {
         this.setState({ pedir: e.target.value });
     }
+
+    handle_caducidad(e){
+      this.setState({caducidad: e.target.value});
+    }
+
     generateId() {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000)
@@ -48,17 +55,19 @@ export default class ModalNuevaConsulta extends React.Component {
         }
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
             s4() + '-' + s4() + s4() + s4();
-    }    
+    }
     hacerPedido(){
         PedidosAlmacenApi.insert({
             _idProducto: this.props.producto._id,
             producto: this.props.producto.nombre,
+            caducidad: this.state.caducidad,
             cantidad: this.state.pedir,
             estado: 'enviado',
+
         });
         alert("Se hizo pedido de " + this.state.pedir + " " + this.state.producto.nombre + "s");
     }
-    guardar(){                 
+    guardar(){
         let producto = this.state.producto;
         let nombre = this.state.nombre;
         let cantidad = parseInt(this.state.cantidad);
@@ -81,20 +90,22 @@ export default class ModalNuevaConsulta extends React.Component {
         ProductosAlmacenApi.remove(this.state.producto._id);
     }
     render() {
-        //const { pacienteId } = this.state.pacienteId;        
+        //const { pacienteId } = this.state.pacienteId;
         return (
             <Modal {...this.props} >
                 <Modal.Header closeButton>
                     <Modal.Title>Editar Producto</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>                    
+                <Modal.Body>
                     Nombre:<input type="text" value={this.state.nombre} onChange={this.handleNombre} /><br/>
-                    Cuantas {this.state.nombre + "s"} desea eliminar (maximo {this.props.producto.cantidad}):<input type="text" value={this.state.cantidad} onChange={this.handleCantidad} /> 
+                    Cuantas {this.state.nombre + "s"} desea eliminar (maximo {this.props.producto.cantidad}):<input type="text" value={this.state.cantidad} onChange={this.handleCantidad} />
                     <hr />
+                    Caducidad:<input type="date" value={this.state.caducidad} onChange={this.handle_caducidad} /><br/>
+
                     Hacer Pedido de <input type="text" value={this.state.pedir} onChange={this.handlePedir} /> {this.state.nombre}<br/>
                     <input type="button" value="Hacer Pedido" onClick={this.hacerPedido} />
                     <hr />
-                    <input className="pull-right" type="button" onClick={this.eliminarProducto} value="Eliminar Producto" /><br/>                    
+                    <input className="pull-right" type="button" onClick={this.eliminarProducto} value="Eliminar Producto" /><br/>
                 </Modal.Body>
                 <Modal.Footer>
                     <input type="button" onClick={this.guardar} value="Guardar" />
@@ -104,4 +115,3 @@ export default class ModalNuevaConsulta extends React.Component {
         );
     }
 }
-
