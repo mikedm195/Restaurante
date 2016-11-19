@@ -26,14 +26,14 @@ export default class Restaurante extends Component {
     }
     seleccionar() {
         return (
-            <div className="container">
-                <div className="jumbotron">
-                    <h1>Restaurante de Ariel</h1>
-                    <p>Aqui se administra el restaurante de Ariel</p>
-                </div>                
-            </div>
+          <div className="container">
+              <div className="jumbotron">
+                  <h1>El <strong>gordinaco</strong> Contento</h1>
+                  <p>Aplicación en la cual podrás manejar tu restaurante y/o tu almacen de la mejor manera posible ;)</p>
+              </div>
+          </div>
         );
-    }    
+    }
     render() {
         var content;
         if (this.state.opcion == 1)
@@ -47,14 +47,14 @@ export default class Restaurante extends Component {
         return (
             <div>
                 <RestauranteHeader productos={this.props.productos} onClick={this.handleOpcion} />
-                {content}                
+                {content}
                 <Footer />
             </div>
         );
     }
 }
 
-Restaurante.propTypes = {    
+Restaurante.propTypes = {
     productos: PropTypes.array.isRequired,
     productosAlmacen: PropTypes.array.isRequired,
     recetas: PropTypes.array.isRequired,

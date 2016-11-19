@@ -103,9 +103,10 @@ export default class Almacen extends Component {
     return (
       <div className="container">
         <div className="jumbotron">
-          <h1>Almacen de Ariel</h1>
-          <p>Aqui se administra el almacen de Ariel</p>
+          <h1>El <strong>gordinaco</strong> Contento</h1>
+          <p>Aplicación en la cual podrás manejar tu restaurante y/o tu almacen de la mejor manera posible ;)</p>
         </div>
+
         <div className="btn-group btn-group-justified" role="group" aria-label="...">
           <div className="btn-group" role="group">
             <button type="button" className="btn btn-default" onClick={()=>this.handle_report(1)}>Productos disponibles</button>
