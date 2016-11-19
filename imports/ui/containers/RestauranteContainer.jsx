@@ -5,12 +5,15 @@ import { ProductosAlmacenApi } from '../../api/ProductosAlmacen.js';
 import { ProductosRestauranteApi } from '../../api/ProductosRestaurante.js';
 import { RecetasApi } from '../../api/Recetas.js';
 import { MenusApi } from '../../api/Menus.js';
+import { MesasApi } from '../../api/Mesas.js';
+
 
 export default createContainer((props) => {
-    return {        
+    return {
         productos: ProductosRestauranteApi.find({}).fetch(),
         productosAlmacen: ProductosAlmacenApi.find({}).fetch(),
         recetas: RecetasApi.find({}).fetch(),
         menus: MenusApi.find({}).fetch(),
+        mesas: MesasApi.find({}).fetch(),
     }
 }, Restaurante);

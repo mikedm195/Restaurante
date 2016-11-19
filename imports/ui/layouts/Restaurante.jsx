@@ -36,9 +36,8 @@ export default class Restaurante extends Component {
         );
     }
     render() {
-        var content;
         if (this.state.opcion == 1)
-            content = <PedidosRestaurante/>;
+            content = <PedidosRestaurante mesas={this.props.mesas}/>;
         else if (this.state.opcion == 2)
             content = <ProductosRestaurante productos={this.props.productos} productosAlmacen={this.props.productosAlmacen}/>;
         else if (this.state.opcion == 3)
@@ -60,4 +59,5 @@ Restaurante.propTypes = {
     productosAlmacen: PropTypes.array.isRequired,
     recetas: PropTypes.array.isRequired,
     menus: PropTypes.array.isRequired,
+    mesas: PropTypes.array.isRequired,
 };
