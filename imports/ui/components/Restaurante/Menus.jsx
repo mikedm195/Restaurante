@@ -1,8 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { _ } from 'lodash';
 
+import ModalEditarReceta from './ModalEditarReceta.jsx';
+
 import { RecetasApi } from '/imports/api/Recetas.js';
 import { MenusApi } from '/imports/api/Menus.js';
+
+import Receta from './Receta.jsx';
+import Menu from './Menu.jsx';
 
 export default class Menus extends Component {
     constructor(props) {
@@ -16,13 +21,18 @@ export default class Menus extends Component {
             'handleAgregarProductoAReceta',
             'handleGuardarReceta',
             'handleTipoReceta',
+            'handlePrecioReceta',
             'renderRecetas',
             //Para menus
             'handleNombreNuevoMenu',
             'handleReceta',
             'handleAgregarRecetasAMenu',
+            'handlePrecioMenu',
             'handleGuardarMenu',            
             'renderMenus',
+            //para Modal            
+            'open',
+            'close',
         );
 
         this.state = this.crearDesdeProps();
@@ -36,6 +46,8 @@ export default class Menus extends Component {
         state.producto = '';
         state.receta = '';
         state.tipoReceta = '';
+        state.precioReceta = '';
+        state.precioMenu = '';
         state.productosReceta = [];
         state.productosMenu = [];
         state.productos = [];
@@ -50,43 +62,43 @@ export default class Menus extends Component {
         event.preventDefault();
         var nombreNuevaReceta = this.state.nombreNuevaReceta;
         var tipoReceta = this.state.tipoReceta;
+        var precioReceta = this.state.precioReceta;
         var productosReceta = this.state.productosReceta;
-        if (nombreNuevaReceta != '' && tipoReceta != '' && productosReceta.length > 0) {
+        if (nombreNuevaReceta != '' && tipoReceta != '' && precioReceta != '' && productosReceta.length > 0) {
             RecetasApi.insert({
                 nombre: nombreNuevaReceta,
                 tipoReceta: tipoReceta,
+                precio: precioReceta,
                 ingredientes: productosReceta,
             });
             this.setState({
                 nombreNuevaReceta: '',
                 tipoReceta: '',
+                precioReceta: '',
                 productosReceta: [],
             })
         }
 
     }
 
+    close() {
+        this.setState({ show: false });        
+    }
+
+    open() {
+        this.setState({ show: true });
+    }
+
     renderRecetas() {
+        var productos = this.props.productos;
         return this.props.recetas.map((receta) => (
-            <div key={receta._id} className="col-sm-4">
-                <div className="panel panel-default">
-                    <div className="panel-heading">
-                        <p>{receta.nombre}</p><p className="pull-right">{receta.tipoReceta}</p>
-                    </div>
-                    <div className="panel-body">
-                        {this.renderProductosRecetas(receta.ingredientes)}
-                    </div>
-                    <div className="panel-footer">
-                        <input className="btnEditar" type="button" value="Ediar" />
-                    </div>
-                </div>
-            </div>
+            <Receta key={receta._id} receta={receta} productos={productos}/>            
         ));
     }
 
     renderProductosRecetas(productos) {
         return productos.map((producto, i) => (
-            <h3 key={i}><span className="label label-default">{producto}</span></h3>
+            <span key={i} className="label label-default">{producto}</span>
         ));
     }
 
@@ -102,6 +114,10 @@ export default class Menus extends Component {
         this.setState({ producto: e.target.value });
     }
 
+    handlePrecioReceta(e) {
+        this.setState({ precioReceta: e.target.value });
+    }
+
     handleAgregarProductoAReceta(e) {
         var productosReceta = this.state.productosReceta;
         if (this.state.producto != '') {
@@ -115,13 +131,16 @@ export default class Menus extends Component {
         event.preventDefault();
         var nombreNuevoMenu = this.state.nombreNuevoMenu;        
         var productosMenu = this.state.productosMenu;
-        if (nombreNuevoMenu != '' && productosMenu.length > 0) {
+        var precioMenu = this.state.precioMenu;
+        if (nombreNuevoMenu != '' && precioMenu != '' && productosMenu.length > 0) {
             MenusApi.insert({
-                nombre: nombreNuevoMenu,                
+                nombre: nombreNuevoMenu,
+                precio: precioMenu,
                 recetas: productosMenu  ,
             });
             this.setState({
-                nombreNuevoMenu: '',                
+                nombreNuevoMenu: '',
+                precioMenu: '',                
                 productosMenu: [],
             })
         }
@@ -129,20 +148,9 @@ export default class Menus extends Component {
     }
 
     renderMenus() {
+        var recetas = this.props.recetas;
         return this.props.menus.map((menu) => (
-            <div key={menu._id} className="col-sm-4">
-                <div className="panel panel-default">
-                    <div className="panel-heading">
-                        <p>{menu.nombre}</p>
-                    </div>
-                    <div className="panel-body">
-                        {this.renderProductosRecetas(menu.recetas)}
-                    </div>
-                    <div className="panel-footer">
-                        <input className="btnEditar" type="button" value="Ediar" />
-                    </div>
-                </div>
-            </div>
+            <Menu key={menu._id} menu={menu} recetas={recetas}/>            
         ));
     }    
 
@@ -154,6 +162,10 @@ export default class Menus extends Component {
         this.setState({ receta: e.target.value });
     }
 
+    handlePrecioMenu(e){
+        this.setState({precioMenu: e.target.value});
+    }
+
     handleAgregarRecetasAMenu(e) {
         var productosMenu = this.state.productosMenu;
         if (this.state.receta != '') {
@@ -161,6 +173,7 @@ export default class Menus extends Component {
             this.setState({ productosMenu: productosMenu });
         }
     }
+
     render() {
         var listaProductos = this.props.productos.map((producto) => (
             <option key={producto._id} value={producto.nombre}>{producto.nombre}</option>
@@ -190,6 +203,8 @@ export default class Menus extends Component {
                                 <input type="button" value="Agregar a receta" onClick={this.handleAgregarProductoAReceta} />
                                 <hr />
                                 {this.renderProductosRecetas(this.state.productosReceta)}
+                                <hr />
+                                $<input className="pull-right" type="number" value={this.state.precioReceta} onChange={this.handlePrecioReceta} />
                             </div>
                             <div className="panel-footer">
                                 <input className="btnEditar" type="button" value="Guardar" onClick={this.handleGuardarReceta} />
@@ -213,6 +228,8 @@ export default class Menus extends Component {
                                 <input type="button" value="Agregar a menu" onClick={this.handleAgregarRecetasAMenu} />
                                 <hr />
                                 {this.renderProductosRecetas(this.state.productosMenu)}
+                                <hr />
+                                $<input className="pull-right" type="number" value={this.state.precioMenu} onChange={this.handlePrecioMenu} />
                             </div>
                             <div className="panel-footer">
                                 <input className="btnEditar" type="button" value="Guardar" onClick={this.handleGuardarMenu} />
@@ -220,7 +237,7 @@ export default class Menus extends Component {
                         </div>
                     </div>
                     {this.renderMenus()}
-                </div>
+                </div>                
             </div>
         );
     }
