@@ -10,13 +10,9 @@ export default class Home extends Component {
                 <HomeHeader />
                 <div className="container">
                     <div className="jumbotron">
-                        <h1>Proyecto de Ariel</h1>
-                        <p>Proyecto para la clase de Analisis y modelacion de software</p>
+                        <h1>El <strong>gordinaco</strong> Contento</h1>
+                        <p>Aplicación en la cual podrás manejar tu restaurante y/o tu almacen de la mejor manera posible ;)</p>
                     </div>
-                    <p>Miguel Del Moral.</p>
-                    <p>Alejandro Herce.</p>
-                    <p>Margot Duek.</p>
-                    <p>Jacobo Calderon.</p>
                 </div>
                 <Footer />
             </div>

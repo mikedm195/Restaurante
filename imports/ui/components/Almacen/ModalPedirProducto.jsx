@@ -81,6 +81,7 @@ export default class ModalNuevaConsulta extends React.Component {
                 $set: {
                     nombre: nombre,
                     cantidad: cantidad,
+                    caducidad: this.state.caducidad,
                 }
             });
         this.setState({cantidad: '', pedir: ''})
