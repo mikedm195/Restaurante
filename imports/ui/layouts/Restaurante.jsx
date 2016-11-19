@@ -4,6 +4,7 @@ import { _ } from 'lodash';
 
 import EmpleadosAlmacen from '/imports/ui/components/Almacen/EmpleadosAlmacen.jsx';
 import ProductosRestaurante from '/imports/ui/components/Restaurante/ProductosRestaurante.jsx';
+import PedidosRestaurante from '/imports/ui/components/Restaurante/PedidosRestaurante.jsx';
 import Menus from '/imports/ui/components/Restaurante/Menus.jsx';
 import RestauranteHeader from '../components/Restaurante/RestauranteHeader.jsx';
 import Footer from '../components/Footer.jsx';
@@ -37,7 +38,7 @@ export default class Restaurante extends Component {
     render() {
         var content;
         if (this.state.opcion == 1)
-            content = '';
+            content = <PedidosRestaurante/>;
         else if (this.state.opcion == 2)
             content = <ProductosRestaurante productos={this.props.productos} productosAlmacen={this.props.productosAlmacen}/>;
         else if (this.state.opcion == 3)
