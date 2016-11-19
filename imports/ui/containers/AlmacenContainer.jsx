@@ -4,11 +4,13 @@ import Almacen from '../layouts/Almacen.jsx';
 import { EmpleadosAlmacenApi } from '../../api/EmpleadosAlmacen.js';
 import { ProductosAlmacenApi } from '../../api/ProductosAlmacen.js';
 import { PedidosAlmacenApi } from '../../api/PedidosAlmacen.js';
+import { PedidosAlmacenARestauranteApi } from '../../api/PedidosAlmacenARestaurante.js';
 
 export default createContainer((props) => {
     return {
         empleados: EmpleadosAlmacenApi.find({}).fetch(),
         productos: ProductosAlmacenApi.find({}).fetch(),
         pedidos: PedidosAlmacenApi.find({}).fetch(),
+        pedidosRestaurante: PedidosAlmacenARestauranteApi.find({}).fetch(),        
     }
 }, Almacen);

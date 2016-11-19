@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { _ } from 'lodash';
 
 import { ProductosRestauranteApi } from '/imports/api/ProductosRestaurante.js';
+import { PedidosAlmacenARestauranteApi } from '/imports/api/PedidosAlmacenARestaurante.js';
+
 import Producto from './Producto.jsx';
 
 export default class ProductosRestaurante extends Component {
@@ -13,7 +15,8 @@ export default class ProductosRestaurante extends Component {
             'handleBuscar',
             'handleSubmitBuscar',
             'handleProductoAlmacen',
-            'handleCantidadAlmacen',            
+            'handleCantidadAlmacen',
+            'handleHacerPedido',            
         );
         this.state = this.crearDesdeProps(props);
     }
@@ -78,7 +81,23 @@ export default class ProductosRestaurante extends Component {
             ));
     }
     handleHacerPedido(){
-
+        if(this.state.productoAlmacen != ''){
+            let pA = this.props.productosAlmacen;
+            let nombre = '';
+            for(var i = 0;i<pA.length;i++){                
+                if(this.state.productoAlmacen == pA[i]._id){
+                    nombre = pA[i].nombre;
+                }
+            }
+            PedidosAlmacenARestauranteApi.insert({
+                _idProducto: this.state.productoAlmacen,
+                producto: nombre,
+                cantidad: this.state.cantidadAlmacen,
+                estado: 'enviado',
+            });
+            alert("Se hizo pedido de " + this.state.cantidadAlmacen + " " + nombre + "s");
+        }
+    
     }
     render() {
         var listaProductosAlmacen = this.props.productosAlmacen.map((producto,i) => (

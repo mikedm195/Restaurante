@@ -3,6 +3,7 @@ import { _ } from 'lodash';
 
 import { PedidosAlmacenApi } from '/imports/api/PedidosAlmacen.js';
 import Pedido from './Pedido.jsx';
+import PedidoRestaurante from './PedidoRestaurante.jsx';
 
 // Task component - represents a single todo item
 export default class PedidosAlmacen extends Component {
@@ -10,7 +11,8 @@ export default class PedidosAlmacen extends Component {
         super(props);
 
         _.bindAll(
-            this,               
+            this,  
+            'renderPedidoRestaurante'             
         );
         //this.state = this.crearDesdeProps(props);
     }
@@ -19,10 +21,17 @@ export default class PedidosAlmacen extends Component {
         this.setState({ pedidos: nextProps.pedidos });
     }
         
-    renderPedido() {
+    renderPedido() {        
         return this.props.pedidos.map(function (pedido) {
             if(pedido.estado != 'recibido')
                 return <Pedido key={pedido._id} pedido={pedido} />;                
+        });        
+    }
+    renderPedidoRestaurante() {
+        var productos = this.props.productos;
+        return this.props.pedidosRestaurante.map(function (pedido) {
+            if(pedido.estado != 'recibido')
+                return <PedidoRestaurante key={pedido._id} pedido={pedido} productos={productos} />;                
         });        
     }
     render() {
@@ -30,6 +39,8 @@ export default class PedidosAlmacen extends Component {
             <div className="container">
                 <h1>Pedidos</h1>                                        
                 {this.renderPedido()}
+                <h1>Pedidos de Restaurante</h1>
+                {this.renderPedidoRestaurante()}
             </div>
         );
     }
@@ -37,4 +48,6 @@ export default class PedidosAlmacen extends Component {
 
 PedidosAlmacen.propTypes = {
     pedidos: PropTypes.array.isRequired,
+    productos: PropTypes.array.isRequired,
+    pedidosRestaurante: PropTypes.array.isRequired,
 };

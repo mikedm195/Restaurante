@@ -34,21 +34,20 @@ export default class Almacen extends Component {
             </div>
         );
     }    
-    render() {
+    render() {        
         var content;
         if (this.state.opcion == 1)
             content = <EmpleadosAlmacen empleados={this.props.empleados} />;
         else if (this.state.opcion == 2)
             content = <ProductosAlmacen productos={this.props.productos} />;
         else if (this.state.opcion == 3)
-            content = <PedidosAlmacen pedidos={this.props.pedidos} />;
+            content = <PedidosAlmacen pedidos={this.props.pedidos} productos={this.props.productos} pedidosRestaurante={this.props.pedidosRestaurante}/>;
         else if (this.state.opcion == 0)
             content = this.seleccionar();
         return (
             <div>
                 <AlmacenHeader productos={this.props.productos} pedidos={this.props.pedidos} onClick={this.handleOpcion} />
-                {content}
-                {/*<EmpleadosAlmacen empleados={this.props.empleados} />*/}
+                    {content}                
                 <Footer />
             </div>
         );
@@ -59,4 +58,5 @@ Almacen.propTypes = {
     empleados: PropTypes.array.isRequired,
     productos: PropTypes.array.isRequired,
     pedidos: PropTypes.array.isRequired,
+    pedidosRestaurante: PropTypes.array.isRequired,
 };
