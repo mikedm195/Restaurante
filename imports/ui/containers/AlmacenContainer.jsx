@@ -12,5 +12,6 @@ export default createContainer((props) => {
         productos: ProductosAlmacenApi.find({}).fetch(),
         pedidos: PedidosAlmacenApi.find({}).fetch(),
         pedidosRestaurante: PedidosAlmacenARestauranteApi.find({}).fetch(),
+
     }
 }, Almacen);

@@ -141,7 +141,7 @@ export default class Almacen extends Component {
 
     return (
       <div>
-        <AlmacenHeader productos={this.props.productos} pedidos={this.props.pedidos} onClick={this.handleOpcion} />
+        <AlmacenHeader productos={this.props.productos} pedidos={this.props.pedidos} onClick={this.handleOpcion} pedidosRestaurante={this.props.pedidosRestaurante} />
         {content}
         <Footer />
       </div>

@@ -60,4 +60,5 @@ Restaurante.propTypes = {
     recetas: PropTypes.array.isRequired,
     menus: PropTypes.array.isRequired,
     mesas: PropTypes.array.isRequired,
+    
 };
