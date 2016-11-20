@@ -51,7 +51,7 @@ export default class ModalEditarMenu extends React.Component {
 
     renderProductosRecetas(productos) {
         return productos.map((producto, i) => (
-            <span key={i} className="label label-default">{producto}</span>
+            <span key={i} className="label label-default">{producto.nombre}</span>
         ));
     }
 
@@ -69,8 +69,10 @@ export default class ModalEditarMenu extends React.Component {
 
     handleAgregarRecetaAMenu(e) {
         var productosMenu = this.state.productosMenu;
-        if (this.state.receta != '') {
-            productosMenu.push(this.state.receta);
+        var receta = this.state.receta;
+        if (receta != '') {
+            var index = _.findIndex(this.props.recetas, function(o) { return o.nombre == receta });            
+            productosMenu.push(this.props.recetas[index]);
             this.setState({ productosMenu: productosMenu });
         }
     }

@@ -5,6 +5,7 @@ import classname from 'classnames';
 
 import { MesasApi } from '/imports/api/Mesas.js';
 import { HistorialCuentasRestauranteApi } from '/imports/api/HistorialCuentasRestaurante.js';
+import { ProductosRestauranteApi } from '/imports/api/ProductosRestaurante.js';
 
 import ModalPedirCuenta from './ModalPedirCuenta.jsx';
 
@@ -19,6 +20,8 @@ export default class Mesa extends React.Component {
             'eliminaDeRecetas',
             'eliminaDeMenus',
             'hacerPedido',
+            'guardarRecetas',
+            'guardarMenus',
             'handlePagar',
             'open',
             'close',
@@ -38,7 +41,7 @@ export default class Mesa extends React.Component {
     }
 
     componentWillMount() {
-        this.guardarMenusConDebounce = _.debounce(this.guardarMenus, 5000);
+        this.guardarMenusConDebounce = _.debounce(this.guardarMenus, 3000);
     }
 
     getcolor(receta) {
@@ -51,7 +54,7 @@ export default class Mesa extends React.Component {
     generateTooltip(menu) {
         return <Tooltip id="tooltip">
             {menu.recetas.map((receta, i) =>
-                <div key={i}>{receta}</div>
+                <div key={i}>{receta.nombre}</div>
             )}
         </Tooltip>
     }
@@ -129,14 +132,38 @@ export default class Mesa extends React.Component {
     }
 
     hacerPedido() {
-        console.log("Se guardo");
-        this.guardarRecetas(this.state.bebidasTemp, this.state.platillosTemp);
-        this.guardarMenusConDebounce(this.state.menusTemp);
-        this.setState({
-            bebidasTemp: [],
-            platillosTemp: [],
-            menusTemp: [],
-        })
+        var productos = this.props.productos;
+        var totalPlatillos = _.concat(this.state.bebidasTemp, this.state.platillosTemp);
+        for(var i = 0;i<this.state.menusTemp.length;i++)
+            totalPlatillos = _.concat(totalPlatillos, this.state.menusTemp[i].recetas)                              
+        var mensaje = "";        
+        for(var i = 0;i<totalPlatillos.length;i++){
+            for(var j = 0;j<totalPlatillos[i].ingredientes.length;j++){
+                var index = _.findIndex(productos, function(o) { return o.nombre == totalPlatillos[i].ingredientes[j] })
+                if(productos[index] && productos[index].cantidad > 0){
+                    productos[index].cantidad--;
+                }else{
+                    mensaje +="No hay ingredientes para hacer " + totalPlatillos[i].nombre + "\n"; 
+                    break;
+                }                
+            }
+        }
+        if(mensaje != ""){
+            alert(mensaje)            
+        }else{            
+            this.guardarRecetas(this.state.bebidasTemp, this.state.platillosTemp);
+            this.guardarMenusConDebounce(this.state.menusTemp);
+            for(var i = 0;i<productos.length;i++){
+                ProductosRestauranteApi.update(productos[i]._id,
+                {
+                    $set: {
+                        nombre: productos[i].nombre,
+                        cantidad: productos[i].cantidad,
+                    }
+                });
+            }
+        }
+        
     }
 
     guardarRecetas(bebidas, platillos) {
@@ -150,6 +177,10 @@ export default class Mesa extends React.Component {
                 }
             }
         );
+        this.setState({
+            bebidasTemp: [],
+            platillosTemp: [],            
+        })
     }
 
     guardarMenus(menus) {
@@ -161,6 +192,9 @@ export default class Mesa extends React.Component {
                 }
             }
         );
+        this.setState({            
+            menusTemp: [],
+        })
     }
 
     open() {
@@ -268,5 +302,6 @@ Mesa.propTypes = {
     id: PropTypes.number.isRequired,
     recetas: PropTypes.array.isRequired,
     menus: PropTypes.array.isRequired,
+    productos: PropTypes.array.isRequired,
     eliminarMesa: PropTypes.func.isRequired,
 }

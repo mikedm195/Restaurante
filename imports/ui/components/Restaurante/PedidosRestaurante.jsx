@@ -29,7 +29,7 @@ export default class PedidosRestaurante extends Component {
 
     renderMesas() {
         return this.props.mesas.map((mesa, i) => (
-            <Mesa key={mesa._id} mesa={mesa} id={i} recetas={this.props.recetas} menus={this.props.menus} eliminarMesa={this.eliminarMesa}/>            
+            <Mesa key={mesa._id} mesa={mesa} id={i} recetas={this.props.recetas} menus={this.props.menus} eliminarMesa={this.eliminarMesa} productos={this.props.productos}/>            
         ));
     }
 
@@ -69,4 +69,5 @@ PedidosRestaurante.propTypes = {
     mesas: PropTypes.array.isRequired,
     recetas: PropTypes.array.isRequired,
     menus: PropTypes.array.isRequired,
+    productos: PropTypes.array.isRequired, 
 };

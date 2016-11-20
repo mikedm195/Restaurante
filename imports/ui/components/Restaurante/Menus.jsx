@@ -154,6 +154,12 @@ export default class Menus extends Component {
         ));
     }    
 
+    renderProductosMenu(recetas) {
+        return recetas.map((receta, i) => (
+            <span key={i} className="label label-default">{receta.nombre}</span>
+        ));
+    }
+
     handleNombreNuevoMenu(e) {
         this.setState({ nombreNuevoMenu: e.target.value });
     }
@@ -168,8 +174,10 @@ export default class Menus extends Component {
 
     handleAgregarRecetasAMenu(e) {
         var productosMenu = this.state.productosMenu;
-        if (this.state.receta != '') {
-            productosMenu.push(this.state.receta);
+        var receta = this.state.receta;
+        if (receta != '') {
+            var index = _.findIndex(this.props.recetas, function(o) { return o.nombre == receta });            
+            productosMenu.push(this.props.recetas[index]);
             this.setState({ productosMenu: productosMenu });
         }
     }
@@ -227,7 +235,7 @@ export default class Menus extends Component {
                                 </select>
                                 <input type="button" value="Agregar a menu" onClick={this.handleAgregarRecetasAMenu} />
                                 <hr />
-                                {this.renderProductosRecetas(this.state.productosMenu)}
+                                {this.renderProductosMenu(this.state.productosMenu)}
                                 <hr />
                                 $<input className="pull-right" type="number" value={this.state.precioMenu} onChange={this.handlePrecioMenu} />
                             </div>

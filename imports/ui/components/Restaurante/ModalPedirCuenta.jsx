@@ -15,9 +15,7 @@ export default class ModalNuevaConsulta extends React.Component {
             'handleNumPersonas',
         );
 
-        this.state = this.crearDesdeProps(props);
-        console.log(props);
-        console.log(this.state);
+        this.state = this.crearDesdeProps(props);        
     }
 
     crearDesdeProps(props) {
