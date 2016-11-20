@@ -8,6 +8,7 @@ import '../imports/api/PedidosAlmacenARestaurante.js';
 import '../imports/api/Recetas.js';
 import '../imports/api/Menus.js';
 import '../imports/api/Mesas.js';
+import '../imports/api/HistorialCuentasRestaurante.js';
 
 Meteor.startup(() => {
   // code to run on server at startup

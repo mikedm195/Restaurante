@@ -2,9 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { _ } from 'lodash';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import classname from 'classnames';
-//findLastIndex 
 
 import { MesasApi } from '/imports/api/Mesas.js';
+import { HistorialCuentasRestauranteApi } from '/imports/api/HistorialCuentasRestaurante.js';
+
+import ModalPedirCuenta from './ModalPedirCuenta.jsx';
 
 export default class Mesa extends React.Component {
     constructor(props) {
@@ -17,6 +19,9 @@ export default class Mesa extends React.Component {
             'eliminaDeRecetas',
             'eliminaDeMenus',
             'hacerPedido',
+            'handlePagar',
+            'open',
+            'close',
         );
 
         this.state = this.crearDesdeProps(props);
@@ -28,6 +33,7 @@ export default class Mesa extends React.Component {
             platillosTemp: [],
             bebidasTemp: [],
             menusTemp: [],
+            show: false,
         }
     }
 
@@ -134,8 +140,8 @@ export default class Mesa extends React.Component {
     }
 
     guardarRecetas(bebidas, platillos) {
-        var bebidasMesa = _.concat(this.props.mesa.bebidas,bebidas);
-        var platillosMesa = _.concat(this.props.mesa.platillos,platillos);
+        var bebidasMesa = _.concat(this.props.mesa.bebidas, bebidas);
+        var platillosMesa = _.concat(this.props.mesa.platillos, platillos);
         MesasApi.update(this.props.mesa._id,
             {
                 $set: {
@@ -147,7 +153,7 @@ export default class Mesa extends React.Component {
     }
 
     guardarMenus(menus) {
-        var menusMesa = _.concat(this.props.mesa.menus,menus);
+        var menusMesa = _.concat(this.props.mesa.menus, menus);
         MesasApi.update(this.props.mesa._id,
             {
                 $set: {
@@ -155,6 +161,33 @@ export default class Mesa extends React.Component {
                 }
             }
         );
+    }
+
+    open() {
+        this.setState({ show: true });
+    }
+
+    close() {
+        this.setState({ show: false });
+    }
+
+    handlePagar() {
+        HistorialCuentasRestauranteApi.insert(this.props.mesa);
+        MesasApi.update(this.props.mesa._id,
+            {
+                $set: {
+                    bebidas: [],
+                    platillos: [],
+                    menus: [],
+                }
+            }
+        );
+        this.setState({
+            bebidasTemp: [],
+            platillosTemp: [],
+            menusTemp: [],
+        });
+        this.close();
     }
 
     render() {
@@ -221,9 +254,10 @@ export default class Mesa extends React.Component {
                         </div>
                     </div>
                     <div className="panel-footer clearfix">
-                        <input className="btnEditar pull-right" type="button" value="Pedir cuenta" />
+                        <input className="btnEditar pull-right" type="button" value="Pedir cuenta" onClick={this.open} />
                     </div>
-                </div>                
+                </div>
+                <ModalPedirCuenta show={this.state.show} onHide={this.close} mesa={this.props.mesa} pagar={this.handlePagar} />
             </div>
         );
     }
