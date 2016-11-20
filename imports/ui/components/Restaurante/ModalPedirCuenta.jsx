@@ -39,10 +39,14 @@ export default class ModalNuevaConsulta extends React.Component {
         return 0;
     }
 
-    handleNumPersonas(e) {        
-        var totalCuenta = this.calcularTotalCuenta();
-        var pagarPorPersona = (totalCuenta / e.target.value).toFixed(2);
-        var cuentaDividida = _.fill(Array(parseInt(e.target.value)), pagarPorPersona);        
+    handleNumPersonas(e) {
+        if (e.target.value == '') {
+            var cuentaDividida = [];
+        } else {
+            var totalCuenta = this.calcularTotalCuenta();
+            var pagarPorPersona = (totalCuenta / e.target.value).toFixed(2);
+            var cuentaDividida = _.fill(Array(parseInt(e.target.value)), pagarPorPersona);
+        }
         this.setState({
             numPersonas: e.target.value,
             cuentaDividida: cuentaDividida,
