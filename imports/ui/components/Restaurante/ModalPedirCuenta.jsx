@@ -15,47 +15,43 @@ export default class ModalNuevaConsulta extends React.Component {
             'handleNumPersonas',
         );
 
-        this.state = this.crearDesdeProps(props);        
+        this.state = this.crearDesdeProps(props);
     }
 
     crearDesdeProps(props) {
         return this.state = {
-            totalCuenta: this.calcularTotalCuenta(props),
+            totalCuenta: 0,
             numPersonas: 0,
             totalProductos: _.concat(props.bebidas, props.platillos, props.menus),
             cuentaDividida: [],
         }
     }
 
-    calcularTotalCuenta(props) {
+    calcularTotalCuenta() {
         var precio = 0;
-        for (let i = 0; i < props.mesa.bebidas.length; i++) {
-            precio += parseInt(props.mesa.bebidas[i].precio);
+        if (this.props.mesa.bebidas && this.props.mesa.platillos && this.props.mesa.menus) {
+            var orden = _.concat(this.props.mesa.bebidas, this.props.mesa.platillos, this.props.mesa.menus);
+            for (let i = 0; i < orden.length; i++) {
+                precio += parseInt(orden[i].precio);
+            }
+            return precio;
         }
-        for (let i = 0; i < props.mesa.platillos.length; i++)
-            precio += parseInt(props.mesa.platillos[i].precio);
-        for (let i = 0; i < props.mesa.menus.length; i++)
-            precio += parseInt(props.mesa.menus[i].precio);
-        return precio;
+        return 0;
     }
 
-    handleNumPersonas(e){
-        var pagarPorPersona = (this.state.totalCuenta / e.target.value).toFixed(2);
-        var cuentaDividida = _.fill(Array(parseInt(e.target.value)),pagarPorPersona);        
+    handleNumPersonas(e) {        
+        var totalCuenta = this.calcularTotalCuenta();
+        var pagarPorPersona = (totalCuenta / e.target.value).toFixed(2);
+        var cuentaDividida = _.fill(Array(parseInt(e.target.value)), pagarPorPersona);        
         this.setState({
             numPersonas: e.target.value,
             cuentaDividida: cuentaDividida,
         });
-    }
 
-    renderPersonas(){
-        return this.state.cuentaDividida.map((persona,i) => (
-            <div key={i}><p>Persona {i+1}: ${persona}</p></div>
-        ));
     }
 
     render() {
-        //const { pacienteId } = this.state.pacienteId;
+        var totalCuenta = this.calcularTotalCuenta();
         return (
             <Modal {...this.props} >
                 <Modal.Header closeButton>
@@ -64,11 +60,15 @@ export default class ModalNuevaConsulta extends React.Component {
                 <Modal.Body>
                     <h3>Dividir cuenta</h3>
                     <p>Numero de personas para dividir cuenta:</p>
-                    <input type="number" value={this.state.numPersonas} onChange={this.handleNumPersonas}/>
-                    {this.renderPersonas()}
+                    <input type="number" value={this.state.numPersonas} onChange={this.handleNumPersonas} />
+                    {(this.state.numPersonas > 0) ?
+                        <div><p>Le toca
+                            <strong> ${(totalCuenta / this.state.numPersonas).toFixed(2)} </strong>
+                            por persona</p></div>
+                        : ''}
                 </Modal.Body>
                 <Modal.Footer>
-                    <p className="pull-left">Total de la cuenta: <strong>${this.state.totalCuenta}</strong></p>
+                    <p className="pull-left">Total de la cuenta: <strong>${totalCuenta}</strong></p>
                     <input type="button" onClick={this.props.pagar} value="Pagar" />
                 </Modal.Footer>
             </Modal>

@@ -198,6 +198,7 @@ export default class Mesa extends React.Component {
     }
 
     open() {
+        this.forceUpdate();        
         this.setState({ show: true });
     }
 
@@ -206,7 +207,11 @@ export default class Mesa extends React.Component {
     }
 
     handlePagar() {
-        HistorialCuentasRestauranteApi.insert(this.props.mesa);
+        HistorialCuentasRestauranteApi.insert({
+            bebidas: this.props.mesa.bebidas,
+            platillos: this.props.mesa.platillos,
+            menus: this.props.mesa.menus,    
+        });
         MesasApi.update(this.props.mesa._id,
             {
                 $set: {
