@@ -237,7 +237,8 @@ export default class Menus extends Component {
                         </div>
                     </div>
                     {this.renderMenus()}
-                </div>                
+                </div> 
+                <br/><br/><br/><br/><br/><br/><br/><br/>
             </div>
         );
     }

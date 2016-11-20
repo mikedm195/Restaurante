@@ -37,7 +37,7 @@ export default class Restaurante extends Component {
     }
     render() {
         if (this.state.opcion == 1)
-            content = <PedidosRestaurante mesas={this.props.mesas}/>;
+            content = <PedidosRestaurante mesas={this.props.mesas} recetas={this.props.recetas} menus={this.props.menus}/>;
         else if (this.state.opcion == 2)
             content = <ProductosRestaurante productos={this.props.productos} productosAlmacen={this.props.productosAlmacen}/>;
         else if (this.state.opcion == 3)

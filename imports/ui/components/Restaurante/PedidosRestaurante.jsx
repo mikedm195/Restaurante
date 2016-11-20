@@ -1,64 +1,72 @@
 import React, { Component, PropTypes } from 'react';
 import { _ } from 'lodash';
-import { Mesas } from '/imports/api/Mesas.js';
+import { MesasApi } from '/imports/api/Mesas.js';
 
+import Mesa from './Mesa.jsx';  
 
 export default class PedidosRestaurante extends Component {
 
-  constructor(props) {
-      super(props);
+    constructor(props) {
+        super(props);
 
-      _.bindAll(
-          this,
+        _.bindAll(
+            this,
+            'renderMesas',
+        );
 
-      );
+        this.state = this.crearDesdeProps();
 
-      this.state = this.crearDesdeProps();
+    }
 
-  }
+    crearDesdeProps(props) {
+        var state = {};
+        return state;
+    }
 
-  crearDesdeProps(props) {
-      var state = {};
-      return state;
-  }
+    componentWillReceiveProps(nextProps) {
+        this.setState(nextProps);
+    }
 
-  componentWillReceiveProps(nextProps) {
-      this.setState(nextProps);
-  }
+    renderMesas() {
+        return this.props.mesas.map((mesa, i) => (
+            <Mesa key={mesa._id} mesa={mesa} id={i} recetas={this.props.recetas} menus={this.props.menus} eliminarMesa={this.eliminarMesa}/>            
+        ));
+    }
 
-  renderMesas() {
-      return this.props.mesas.map((mesa) => (
-          <div key={mesa._id} className="col-sm-4">
-              <div className="panel panel-default">
-                  <div className="panel-heading">
-                      <p>{mesa.nombre}</p><p className="pull-right">{mesa.tipomesa}</p>
-                  </div>
-                  <div className="panel-body">
-                      {this.renderProductosRecetas(mesa.ingredientes)}
-                  </div>
-                  <div className="panel-footer">
-                      <input className="btnEditar" type="button" value="Ediar" />
-                  </div>
-              </div>
-          </div>
-      ));
-  }
+    eliminarMesa(mesa) {
+        if(mesa.bebidas.length == 0 && mesa.bebidas.length == 0 && mesa.menus.length == 0)
+            MesasApi.remove(mesa._id);
+        else
+            alert('Termine de atender a los clientes antes de eliminar la mesa');
+    }
 
-  renderProductosRecetas(productos) {
-      return productos.map((producto, i) => (
-          <h3 key={i}><span className="label label-default">{producto}</span></h3>
-      ));
-  }
-
-    render() {
+    agregarMesa() {
+        MesasApi.insert({
+            bebidas:[],
+            platillos:[],
+            menus:[],
+        })
+    }
+    
+    render() {                
         return (
             <div className="container">
-                evidkjvsnlvs
+                <h1>Recetas</h1>
+                <div className="row">
+                    {this.renderMesas()}
+                    <button type="button" className="btn btn-default btn-circle btn-xl" onClick={this.agregarMesa}>
+                        <i className="glyphicon glyphicon-plus"></i>
+                    </button>
+                    <strong>Agregar mesa</strong>
+                </div>
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             </div>
         );
     }
 }
 
 PedidosRestaurante.propTypes = {
-
+    mesas: PropTypes.array.isRequired,
+    recetas: PropTypes.array.isRequired,
+    menus: PropTypes.array.isRequired,
 };
