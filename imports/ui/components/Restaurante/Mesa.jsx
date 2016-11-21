@@ -96,6 +96,7 @@ export default class Mesa extends React.Component {
     }
 
     listaRecetasParaAgregar(recetas) {
+      recetas.popularidadReceta ++;
         return recetas.map((receta, i) => (
             <button key={i} type="button" className={this.getcolor(receta)} onClick={() => this.agregarARecetas(receta)}>
                 {receta.nombre}
@@ -135,22 +136,22 @@ export default class Mesa extends React.Component {
         var productos = this.props.productos;
         var totalPlatillos = _.concat(this.state.bebidasTemp, this.state.platillosTemp);
         for(var i = 0;i<this.state.menusTemp.length;i++)
-            totalPlatillos = _.concat(totalPlatillos, this.state.menusTemp[i].recetas)                              
-        var mensaje = "";        
+            totalPlatillos = _.concat(totalPlatillos, this.state.menusTemp[i].recetas)
+        var mensaje = "";
         for(var i = 0;i<totalPlatillos.length;i++){
             for(var j = 0;j<totalPlatillos[i].ingredientes.length;j++){
                 var index = _.findIndex(productos, function(o) { return o.nombre == totalPlatillos[i].ingredientes[j] })
                 if(productos[index] && productos[index].cantidad > 0){
                     productos[index].cantidad--;
                 }else{
-                    mensaje +="No hay ingredientes para hacer " + totalPlatillos[i].nombre + "\n"; 
+                    mensaje +="No hay ingredientes para hacer " + totalPlatillos[i].nombre + "\n";
                     break;
-                }                
+                }
             }
         }
         if(mensaje != ""){
-            alert(mensaje)            
-        }else{            
+            alert(mensaje)
+        }else{
             this.guardarRecetas(this.state.bebidasTemp, this.state.platillosTemp);
             this.guardarMenusConDebounce(this.state.menusTemp);
             for(var i = 0;i<productos.length;i++){
@@ -163,7 +164,7 @@ export default class Mesa extends React.Component {
                 });
             }
         }
-        
+
     }
 
     guardarRecetas(bebidas, platillos) {
@@ -179,7 +180,7 @@ export default class Mesa extends React.Component {
         );
         this.setState({
             bebidasTemp: [],
-            platillosTemp: [],            
+            platillosTemp: [],
         })
     }
 
@@ -192,13 +193,13 @@ export default class Mesa extends React.Component {
                 }
             }
         );
-        this.setState({            
+        this.setState({
             menusTemp: [],
         })
     }
 
     open() {
-        this.forceUpdate();        
+        this.forceUpdate();
         this.setState({ show: true });
     }
 
@@ -210,7 +211,7 @@ export default class Mesa extends React.Component {
         HistorialCuentasRestauranteApi.insert({
             bebidas: this.props.mesa.bebidas,
             platillos: this.props.mesa.platillos,
-            menus: this.props.mesa.menus,    
+            menus: this.props.mesa.menus,
         });
         MesasApi.update(this.props.mesa._id,
             {

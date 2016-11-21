@@ -9,13 +9,18 @@ export default class Home extends Component {
             <div>
                 <HomeHeader />
                 <div className="container">
+                  <div className="col-md-6">
                     <div className="jumbotron">
                         <h1>El <strong>gordinaco</strong> Contento</h1>
                         <p>Aplicación en la cual podrás manejar tu restaurante y/o tu almacen de la mejor manera posible ;)</p>
                     </div>
+                  </div>
+                  <div className="col-md-6">
+                  </div>
                 </div>
                 <Footer />
             </div>
+
         );
     }
 }

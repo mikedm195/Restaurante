@@ -93,7 +93,6 @@ export default class Almacen extends Component {
   }
   seleccionar() {
     var reportes;
-    console.log(this.state.val);
     if(this.state.val == 1)
     reportes = this.available();
     else if(this.state.val == 2)
