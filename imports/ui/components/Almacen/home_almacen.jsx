@@ -51,7 +51,7 @@ export default class Almacen extends Component {
   prox_expire() {
     var p = this.props.productos;
     return p.map(function(producto){
-      if(Date.parse(producto.caducidad) < Date.parse(new Date()) + 864000000){
+      if(Date.parse(producto.caducidad) < Date.parse(new Date()) + 864000000 && Date.parse(producto.caducidad) > Date.parse(new Date()) ){
         return(
           <div key={producto._id} className="col-sm-4">
             <div className="panel panel-default">
