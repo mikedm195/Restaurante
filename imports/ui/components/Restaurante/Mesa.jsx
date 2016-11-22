@@ -96,7 +96,7 @@ export default class Mesa extends React.Component {
     }
 
     listaRecetasParaAgregar(recetas) {
-      recetas.popularidadReceta ++;
+      recetas.popularidadReceta++;
         return recetas.map((receta, i) => (
             <button key={i} type="button" className={this.getcolor(receta)} onClick={() => this.agregarARecetas(receta)}>
                 {receta.nombre}

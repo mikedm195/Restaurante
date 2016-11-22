@@ -44,6 +44,8 @@ export default class Restaurante extends Component {
 
 
   seleccionar() {
+    var top;
+    top = this.topPlates();
     return (
       <div className="container">
         <div className="jumbotron">
@@ -51,8 +53,7 @@ export default class Restaurante extends Component {
           <p>Aplicación en la cual podrás manejar tu restaurante y/o tu almacen de la mejor manera posible ;)</p>
         </div>
         <div>
-          <button type="button" className="btn btn-default" onClick={()=>this.topPlates()}>Top 10 platillos <strong>gordinacos</strong></button>
-
+          {top}
         </div>
       </div>
     );
