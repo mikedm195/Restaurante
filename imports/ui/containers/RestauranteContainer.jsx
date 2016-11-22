@@ -6,6 +6,7 @@ import { ProductosRestauranteApi } from '../../api/ProductosRestaurante.js';
 import { RecetasApi } from '../../api/Recetas.js';
 import { MenusApi } from '../../api/Menus.js';
 import { MesasApi } from '../../api/Mesas.js';
+import { EmpleadosRestauranteApi } from '../../api/EmpleadosRestaurante.js';
 
 
 export default createContainer((props) => {
@@ -15,5 +16,6 @@ export default createContainer((props) => {
         recetas: RecetasApi.find({}).fetch(),
         menus: MenusApi.find({}).fetch(),
         mesas: MesasApi.find({}).fetch(),
+        empleados: EmpleadosRestauranteApi.find({}).fetch(),
     }
 }, Restaurante);

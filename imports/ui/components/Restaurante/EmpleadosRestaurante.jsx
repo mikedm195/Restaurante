@@ -52,7 +52,7 @@ export default class EmpleadosRestaurante extends Component {
         const empleados = this.state.empleados;
 
         //empleados.push(empleado);
-        EmpleadosAlmacenApi.insert({
+        EmpleadosRestauranteApi.insert({
             nombre: this.state.nombre,
             apellido: this.state.apellido,
             createAt: new Date(),
@@ -91,6 +91,6 @@ export default class EmpleadosRestaurante extends Component {
     }
 }
 
-EmpleadosAlmacen.propTypes = {
+EmpleadosRestaurante.propTypes = {
     empleados: PropTypes.array.isRequired,
 };

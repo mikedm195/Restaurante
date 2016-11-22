@@ -7,15 +7,20 @@ import { _ } from 'lodash';
 export default class Header extends Component {
 
     getPopOverDataNotificacion() {
-        return this.props.productos.map(function (data, i) {
-            if (data.cantidad == 0)
-                return (<div key={data._id}>Se acabo <strong>{data.nombre}</strong>{data.cantidad}</div>);
-            else if (data.cantidad < 10)
-                return (<div key={data._id}>Casi se acaba <strong>{data.nombre}</strong>{data.cantidad}</div>);
+        return this.props.productos.map(function (data, i) {            
             if (Date.parse(data.caducidad) <= Date.parse(new Date()))
               return (<div key={data._id}>Se caducó <strong>{data.nombre}</strong></div>);
             else if (Date.parse(data.caducidad) <= Date.parse(new Date()) + 864000000)
               return (<div key={data._id}>Casi se caduca <strong>{data.nombre}</strong></div>);
+        });
+    }
+
+    getPopOverDataNotificacion2() {
+        return this.props.productos.map(function (data, i) {
+            if (data.cantidad == 0)
+                return (<div key={data._id}>Se acabo <strong>{data.nombre}</strong></div>);
+            else if (data.cantidad < 10)
+                return (<div key={data._id}>Casi se acaba <strong>{data.nombre}</strong></div>);            
         });
     }
 
@@ -34,7 +39,7 @@ export default class Header extends Component {
     }
 
     getNumNotify() {
-        let cont = 0;
+        let cont = 1;
         this.props.productos.map(function (data, i) {
             if (data.cantidad < 10){
                 cont++;
@@ -64,6 +69,7 @@ export default class Header extends Component {
             <Popover id="popover-trigger-click-root-close" title="Notificaciones">
                 <div onClick={() => this.props.onClick(2)}>
                     {this.getPopOverDataNotificacion()}
+                    {this.getPopOverDataNotificacion2()}
                 </div>
             </Popover>
         );

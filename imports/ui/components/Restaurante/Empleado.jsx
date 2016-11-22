@@ -35,7 +35,7 @@ export default class Empleado extends Component {
 
         const empleado = this.state.empleado;
 
-        EmpleadosAlmacenApi.update(empleado._id,
+        EmpleadosRestauranteApi.update(empleado._id,
             {
                 $set: {
                     nombre: this.state.nombre,
@@ -51,7 +51,7 @@ export default class Empleado extends Component {
     }
 
     deleteEmpleado() {
-        EmpleadosAlmacenApi.remove(this.state.empleado._id);
+        EmpleadosRestauranteApi.remove(this.state.empleado._id);
     }
 
     render() {
