@@ -1,0 +1,12 @@
+App para administrar almacen y restaurante
+
+Instalar meteor
+https://www.meteor.com/install
+
+
+Para correr el proyecto:
+
+git clone https://github.com/mikedm195/Restaurante.git
+cd Restaurante
+meteor npm install
+meteor
