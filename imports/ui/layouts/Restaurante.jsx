@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { _ } from 'lodash';
 
-import EmpleadosAlmacen from '/imports/ui/components/Almacen/EmpleadosAlmacen.jsx';
+import EmpleadosRestaurante from '/imports/ui/components/Restaurante/EmpleadosRestaurante.jsx';
 import ProductosRestaurante from '/imports/ui/components/Restaurante/ProductosRestaurante.jsx';
 import PedidosRestaurante from '/imports/ui/components/Restaurante/PedidosRestaurante.jsx';
 import Menus from '/imports/ui/components/Restaurante/Menus.jsx';
@@ -49,7 +49,7 @@ export default class Restaurante extends Component {
     return (
       <div className="container">
         <div className="jumbotron jumbo_almacen">
-          <h1>El <strong>gordinaco</strong> Contento</h1>
+          <h1>El <strong>GoRdInAcO</strong> Contento</h1>
           <p>Aplicación en la cual podrás manejar tu restaurante y/o tu almacen de la mejor manera posible ;)</p>
         </div>
         <div>
@@ -63,13 +63,15 @@ export default class Restaurante extends Component {
 
   render() {
     if (this.state.opcion == 1)
-    content = <PedidosRestaurante mesas={this.props.mesas} recetas={this.props.recetas} menus={this.props.menus} productos={this.props.productos}/>;
+      content = <PedidosRestaurante mesas={this.props.mesas} recetas={this.props.recetas} menus={this.props.menus} productos={this.props.productos}/>;
     else if (this.state.opcion == 2)
-    content = <ProductosRestaurante productos={this.props.productos} productosAlmacen={this.props.productosAlmacen}/>;
+      content = <ProductosRestaurante productos={this.props.productos} productosAlmacen={this.props.productosAlmacen}/>;
     else if (this.state.opcion == 3)
-    content = <Menus productos={this.props.productos} recetas={this.props.recetas} menus={this.props.menus}/>;
+      content = <Menus productos={this.props.productos} recetas={this.props.recetas} menus={this.props.menus}/>;
+    else if (this.state.opcion == 4)
+      content = <EmpleadosRestaurante empleados={this.props.empleados} />;
     else if (this.state.opcion == 0)
-    content = this.seleccionar();
+      content = this.seleccionar();
 
     return (
       <div>

@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { _ } from 'lodash';
 
-import { EmpleadosAlmacenApi } from '/imports/api/EmpleadosAlmacen.js';
+import { EmpleadosRestauranteApi } from '/imports/api/EmpleadosRestaurante.js';
 import Empleado from './Empleado.jsx';
 
 // Task component - represents a single todo item
-export default class EmpleadosAlmacen extends Component {
+export default class EmpleadosRestaurante extends Component {
     constructor(props) {
         super(props);
 
@@ -52,7 +52,7 @@ export default class EmpleadosAlmacen extends Component {
         const empleados = this.state.empleados;
 
         //empleados.push(empleado);
-        EmpleadosAlmacenApi.insert({
+        EmpleadosRestauranteApi.insert({
             nombre: this.state.nombre,
             apellido: this.state.apellido,
             createAt: new Date(),
@@ -93,6 +93,6 @@ export default class EmpleadosAlmacen extends Component {
     }
 }
 
-EmpleadosAlmacen.propTypes = {
+EmpleadosRestaurante.propTypes = {
     empleados: PropTypes.array.isRequired,
 };

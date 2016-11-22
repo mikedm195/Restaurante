@@ -62,9 +62,9 @@ export default class Pedido extends Component {
     render() {
         return (
             <div>
-                Producto: {this.props.pedido.producto}
-                Cantidad: {this.props.pedido.cantidad}
-                <input type="button" value="Recibir" onClick={this.recibeProducto} />
+                <p>Producto: {this.props.pedido.producto}</p><br/>
+                <p>Cantidad: {this.props.pedido.cantidad}</p>
+                <input className="btn btn-default" type="button" value="Enviar" onClick={this.recibeProducto} />
             </div>
         );
     }

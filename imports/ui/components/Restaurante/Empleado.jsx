@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { _ } from 'lodash';
 
-import { EmpleadosAlmacenApi } from '/imports/api/EmpleadosAlmacen.js';
+import { EmpleadosRestauranteApi } from '/imports/api/EmpleadosRestaurante.js';
 // Task component - represents a single todo item
 export default class Empleado extends Component {
     constructor(props) {
@@ -35,7 +35,7 @@ export default class Empleado extends Component {
 
         const empleado = this.state.empleado;
 
-        EmpleadosAlmacenApi.update(empleado._id,
+        EmpleadosRestauranteApi.update(empleado._id,
             {
                 $set: {
                     nombre: this.state.nombre,
@@ -51,7 +51,7 @@ export default class Empleado extends Component {
     }
 
     deleteEmpleado() {
-        EmpleadosAlmacenApi.remove(this.state.empleado._id);
+        EmpleadosRestauranteApi.remove(this.state.empleado._id);
     }
 
     render() {
@@ -69,9 +69,9 @@ export default class Empleado extends Component {
                             </form>
                         </div>
                         : ''}
-                    <div className="panel-footer">                        
+                    <div className="panel-footer">
                         <input className="btnEditar btn btn-primary" type="button" value="editar" onClick={this.handleEditar} />
-                        <input className="btnEditar btn btn-danger" type="button" value="eliminar" onClick={this.deleteEmpleado} />                        
+                        <input className="btnEditar btn btn-danger" type="button" value="eliminar" onClick={this.deleteEmpleado} />
                     </div>
                 </div>
             </div>

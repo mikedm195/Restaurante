@@ -22,6 +22,7 @@ export default class Header extends Component {
                             <li onClick={() => this.props.onClick(1)}><a href="#">Pedidos</a></li>
                             <li onClick={() => this.props.onClick(2)}><a href="#">Productos</a></li>
                             <li onClick={() => this.props.onClick(3)}><a href="#">Menus</a></li>
+                            <li onClick={() => this.props.onClick(4)}><a href="#">Empleados</a></li>
                         </ul>                        
                     </div>
                 </div>

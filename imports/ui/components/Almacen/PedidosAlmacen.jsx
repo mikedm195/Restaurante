@@ -39,6 +39,7 @@ export default class PedidosAlmacen extends Component {
             <div className="container">
                 <h1>Pedidos</h1>                                        
                 {this.renderPedido()}
+                <hr/>
                 <h1>Pedidos de Restaurante</h1>
                 {this.renderPedidoRestaurante()}
             </div>
