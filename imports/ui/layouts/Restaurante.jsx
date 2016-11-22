@@ -46,7 +46,7 @@ export default class Restaurante extends Component {
   seleccionar() {
     return (
       <div className="container">
-        <div className="jumbotron">
+        <div className="jumbotron jumbo_almacen">
           <h1>El <strong>gordinaco</strong> Contento</h1>
           <p>Aplicación en la cual podrás manejar tu restaurante y/o tu almacen de la mejor manera posible ;)</p>
         </div>

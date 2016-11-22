@@ -1,12 +1,21 @@
 /* CSS declarations go here */
 .navbar {
-    margin-bottom: 50px;
-    border-radius: 0;
+  margin-bottom: 50px;
+  border-radius: 0;
 }
 
 /* Remove the jumbotron's default bottom margin */
-    .jumbotron {
-    margin-bottom: 0;
+.jumbotron {
+  margin-bottom: 0;
+}
+.jumbo_almacen{
+  background-color: #ab005c ;
+  margin-bottom: 10%;
+}
+
+.jumbo_almacen:hover{
+  background-color: #8B008B	;
+
 }
 
 /* Add a gray background color and some padding to the footer */
@@ -27,44 +36,44 @@ nav {
 }
 
 nav ul{
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 nav ul li {
-    display: inline-block;
-    list-style-type: none;
+  display: inline-block;
+  list-style-type: none;
 }
 
 nav ul li:hover {
-    display: inline-block;
-    list-style-type: none;
-    background-color: grey;
+  display: inline-block;
+  list-style-type: none;
+  background-color: grey;
 }
 
 nav > ul > li > a {
-    color: white;
-    font-size: 1.5em;
-    background-color:0000;
-    display: block;
-    line-height: 2em;
-    padding: 0.5em 0.5em;
-    text-decoration: none;
+  color: white;
+  font-size: 1.5em;
+  background-color:0000;
+  display: block;
+  line-height: 2em;
+  padding: 0.5em 0.5em;
+  text-decoration: none;
 }
 
 .btnEditar {
-    width: 50%;
-    height: 100%;
+  width: 50%;
+  height: 100%;
 }
 
 .notify {
-    margin-top: 10px;
-    margin-right: 30px;
-    color: gray;
+  margin-top: 10px;
+  margin-right: 30px;
+  color: gray;
 }
 
 p {
-    display: inline;
+  display: inline;
 }
 
 .btn-circle.btn-xl {
@@ -77,14 +86,14 @@ p {
 }
 
 .border-between > [class*='col-']:before {
- background: #e3e3e3;
- bottom: 0;
- content: " ";
- left: 0;
- position: absolute;
- width: 1px;
- top: 0;
+  background: #e3e3e3;
+  bottom: 0;
+  content: " ";
+  left: 0;
+  position: absolute;
+  width: 1px;
+  top: 0;
 }
 .border-between > [class*='col-']:first-child:before {
- display: none;
+  display: none;
 }

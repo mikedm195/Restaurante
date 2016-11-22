@@ -78,7 +78,7 @@ export default class Header extends Component {
 
         return (
             <nav className="navbar navbar-inverse">
-                <div className="container-fluid">
+                <div className="container-fluid almacen_header">
                     <div className="navbar-header">
                         <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                             <span className="icon-bar"></span>
