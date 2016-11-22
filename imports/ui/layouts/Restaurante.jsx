@@ -53,11 +53,14 @@ export default class Restaurante extends Component {
           <p>Aplicación en la cual podrás manejar tu restaurante y/o tu almacen de la mejor manera posible ;)</p>
         </div>
         <div>
+          <h2> Las recetas más populares <strong>gordinacas</strong> son </h2>
           {top}
         </div>
       </div>
     );
   }
+
+
   render() {
     if (this.state.opcion == 1)
     content = <PedidosRestaurante mesas={this.props.mesas} recetas={this.props.recetas} menus={this.props.menus} productos={this.props.productos}/>;
