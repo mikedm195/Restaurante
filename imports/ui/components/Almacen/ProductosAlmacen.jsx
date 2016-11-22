@@ -101,11 +101,14 @@ export default class ProductosAlmacen extends Component {
                     {this.renderProducto()}
                     <li className="list-group-item">
                         <form className="new-task" onSubmit={this.handleSubmitEditar} >
-                            <input type="text" value={this.state.nombre} onChange={this.handleNombre} />
-                            <input type="submit" value="agregar" />
+                            <div className="col-md-4">
+                            <input className="form-control" type="text" value={this.state.nombre} onChange={this.handleNombre} />
+                            </div>
+                            <input className="btn btn-default" type="submit" value="Agregar" />
                         </form>
                     </li>
-                </ul>                
+                </ul> 
+                <br/><br/><br/><br/><br/>               
             </div>
         );
     }

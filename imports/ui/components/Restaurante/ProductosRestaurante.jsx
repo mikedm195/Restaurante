@@ -123,7 +123,8 @@ export default class ProductosRestaurante extends Component {
                 </form>
                 <ul className="list-group">
                     {this.renderProducto()}                    
-                </ul>                
+                </ul> 
+                <br/><br/><br/><br/><br/><br/>
             </div>
         );
     }

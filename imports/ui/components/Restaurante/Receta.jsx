@@ -22,7 +22,7 @@ export default class Receta extends React.Component {
 
     renderProductosRecetas(productos) {
         return productos.map((producto, i) => (
-            <span key={i} className="label label-default">{producto}</span>
+            <button key={i} className="btn btn-default btn-sm">{producto}</button>    
         ));
     }
 
@@ -44,8 +44,8 @@ export default class Receta extends React.Component {
         return (
             <div className="col-sm-4">
                 <div className="panel panel-default">
-                    <p>{receta.nombre}</p><p className="pull-right">{receta.tipoReceta}</p>
                     <div className="panel-heading">
+                        <p>{receta.nombre}</p><p className="pull-right">{receta.tipoReceta}</p>
                     </div>
                     <div className="panel-body">
                         {this.renderProductosRecetas(receta.ingredientes)}

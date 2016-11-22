@@ -43,7 +43,7 @@ export default class Empleado extends Component {
                     modifiedAt: new Date(),
                 }
             });
-        this.setState({editar: false});
+        this.setState({ editar: false });
     }
 
     handleEditar(e) {
@@ -63,15 +63,15 @@ export default class Empleado extends Component {
                     {this.state.editar ?
                         <div className="panel-body">
                             <form className="new-task" onSubmit={this.handleSubmit} >
-                                <input type="text" value={this.state.nombre} onChange={this.handleNombre} />
-                                <input type="text" value={this.state.apellido} onChange={this.handleApellido} />
-                                <input type="submit" value="Editar" />
+                                <input className="form-control" type="text" value={this.state.nombre} onChange={this.handleNombre} />
+                                <input className="form-control" type="text" value={this.state.apellido} onChange={this.handleApellido} />
+                                <input className="btn-primary" type="submit" value="Editar" />
                             </form>
                         </div>
                         : ''}
-                    <div className="panel-footer">
-                        <input className="btnEditar" type="button" value="editar" onClick={this.handleEditar} />
-                        <input className="btnEditar" type="button" value="eliminar" onClick={this.deleteEmpleado} />
+                    <div className="panel-footer">                        
+                        <input className="btnEditar btn btn-primary" type="button" value="editar" onClick={this.handleEditar} />
+                        <input className="btnEditar btn btn-danger" type="button" value="eliminar" onClick={this.deleteEmpleado} />                        
                     </div>
                 </div>
             </div>

@@ -68,7 +68,7 @@ export default class ModalNuevaConsulta extends React.Component {
                 </Modal.Header>
                 <Modal.Body>                    
                     Nombre: {this.props.producto.nombre} <br/>
-                    Cuantas {this.state.nombre + "s"} desea eliminar (maximo {this.props.producto.cantidad}):<input type="text" value={this.state.cantidad} onChange={this.handleCantidad} />                                         
+                    Cuantas {this.props.producto.nombre + "s"} desea eliminar (maximo {this.props.producto.cantidad}):<input type="text" value={this.state.cantidad} onChange={this.handleCantidad} />                                         
                     <hr />
                     <input className="pull-right" type="button" onClick={this.eliminarProducto} value="Eliminar Producto" /><br/>                    
                 </Modal.Body>

@@ -22,7 +22,7 @@ export default class Menu extends React.Component {
 
     renderProductosRecetas(productos) {
         return productos.map((producto, i) => (
-            <span key={i} className="label label-default">{producto.nombre}</span>
+            <button key={i} className="btn btn-default btn-sm">{producto.nombre}</button>            
         ));
     }
 

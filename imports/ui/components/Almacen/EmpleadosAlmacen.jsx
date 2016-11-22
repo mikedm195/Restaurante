@@ -71,10 +71,17 @@ export default class EmpleadosAlmacen extends Component {
         return (
             <div className="container">
                 <form className="new-task" onSubmit={this.handleSubmit} >
-                    <input type="text" value={this.state.nombre} onChange={this.handleNombre} />
-                    <input type="text" value={this.state.apellido} onChange={this.handleApellido} />
-                    <input type="submit" value="agregar" />
+                    <div className="col-md-5">
+                        <input className="form-control" type="text" value={this.state.nombre} onChange={this.handleNombre} />
+                    </div>
+                    <div className="col-md-5">
+                        <input className="form-control" type="text" value={this.state.apellido} onChange={this.handleApellido} />
+                    </div>
+                    <div className="col-md-2">
+                        <input className="btn btn-default" type="submit" value="Agregar empleado" />
+                    </div>
                 </form>
+                <br/><br/>
                 <div className="row">
                     {this.renderEmpleado()}
                 </div>
