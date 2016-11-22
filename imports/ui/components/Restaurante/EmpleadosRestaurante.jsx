@@ -72,9 +72,11 @@ export default class EmpleadosRestaurante extends Component {
             <div className="container">
                 <form className="new-task" onSubmit={this.handleSubmit} >
                     <div className="col-md-5">
+                      <p>Nombre</p>
                         <input className="form-control" type="text" value={this.state.nombre} onChange={this.handleNombre} />
                     </div>
                     <div className="col-md-5">
+                      <p>Apellido</p>
                         <input className="form-control" type="text" value={this.state.apellido} onChange={this.handleApellido} />
                     </div>
                     <div className="col-md-2">
