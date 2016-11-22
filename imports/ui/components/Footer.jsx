@@ -9,7 +9,7 @@ const Footer = () => (
           <li><Link to ="/team"> Quiénes somos</Link></li>
           <li><Link to ="/almacen"> Almacen </Link></li>
           <li><Link to ="/restaurante"> Restaurante </Link></li>
-          <li><h2>El <strong>gordinaco</strong> contento</h2></li>
+          <li><h2>El <strong>GoRdInAcO</strong> contento</h2></li>
         </ul>
       </nav>
     </footer>

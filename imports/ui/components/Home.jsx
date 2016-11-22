@@ -11,7 +11,7 @@ export default class Home extends Component {
         <HomeHeader />
         <div className="container">
             <div className="jumbotron jumbo_almacen">
-              <h1>El <strong>gordinaco</strong> Contento</h1>
+              <h1>El <strong>GoRdInAcO</strong> Contento</h1>
               <p>Aplicación en la cual podrás manejar tu restaurante y/o tu almacen de la mejor manera posible ;)</p>
             </div>
 

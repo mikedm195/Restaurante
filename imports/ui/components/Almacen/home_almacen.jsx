@@ -44,14 +44,10 @@ export default class Almacen extends Component {
   }
 
 
-
-
-
-
   prox_expire() {
     var p = this.props.productos;
     return p.map(function(producto){
-      if(Date.parse(producto.caducidad) < Date.parse(new Date()) + 864000000){
+      if(Date.parse(producto.caducidad) < Date.parse(new Date()) + 864000000 && Date.parse(producto.caducidad) > Date.parse(new Date())){
         return(
           <div key={producto._id} className="col-sm-4">
             <div className="panel panel-default">
@@ -102,7 +98,7 @@ export default class Almacen extends Component {
     return (
       <div className="container">
         <div className="jumbotron jumbo_almacen">
-          <h1>El <strong>gordinaco</strong> Contento</h1>
+          <h1>El <strong>GoRdInAcO</strong> Contento</h1>
           <p>Aplicación en la cual podrás manejar tu restaurante y/o tu almacen de la mejor manera posible ;)</p>
         </div>
 
